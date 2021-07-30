@@ -8,20 +8,27 @@ import java.util.List;
 
 public class ProductsByEffectivePriceRange {
 
-    public List<Product> m(BigDecimal mi, BigDecimal ma, List<Product> lis) {
-        if (mi == null) throw new IllegalArgumentException("minimum price should not be null");
-        if (ma == null) throw new IllegalArgumentException("maximum price should not be null");
-        if (lis == null) throw new IllegalArgumentException("product list should not be null");
+    public List<Product> filter(BigDecimal minimumPrice, BigDecimal maximumPrice, List<Product> products) {
+        if (minimumPrice == null) throw new IllegalArgumentException("minimum price should not be null");
+        if (maximumPrice == null) throw new IllegalArgumentException("maximum price should not be null");
+        if (products == null) throw new IllegalArgumentException("product list should not be null");
 
-        List<Product> lisFi = new ArrayList<>();
+        List<Product> filteredProducts = new ArrayList<>();
 
-        for (Product x : lis) {
-            if ((x.getDiscount() != null ? x.getPrice().subtract(x.getDiscount()) : x.getPrice()).compareTo(mi) >= 0 && (x.getDiscount() != null ? x.getPrice().subtract(x.getDiscount()) : x.getPrice()).compareTo(ma) <= 0) {
-                lisFi.add(x);
+        for (Product product : products) {
+            boolean hasDiscount = product.getDiscount() != null;
+            BigDecimal effectivePrice;
+            if (hasDiscount) {
+                effectivePrice = product.getPrice().subtract(product.getDiscount());
+            } else {
+                effectivePrice = product.getPrice();
+            }
+            if (effectivePrice.compareTo(minimumPrice) >= 0 && effectivePrice.compareTo(maximumPrice) <= 0) {
+                filteredProducts.add(product);
             }
         }
 
-        return lisFi;
+        return filteredProducts;
     }
 
 }
