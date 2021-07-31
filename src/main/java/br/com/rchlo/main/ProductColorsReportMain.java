@@ -2,8 +2,8 @@ package br.com.rchlo.main;
 
 import br.com.rchlo.data.ProductRepository;
 import br.com.rchlo.domain.Product;
-import br.com.rchlo.dto.ProductsReportResult;
-import br.com.rchlo.dto.ProductsReportResult.ProductsReportResultItem;
+import br.com.rchlo.dto.ProductColorsReportResult;
+import br.com.rchlo.dto.ProductColorsReportResult.ProductColorsReportResultItem;
 import br.com.rchlo.service.ProductColorsReport;
 
 import java.util.List;
@@ -14,8 +14,8 @@ public class ProductColorsReportMain {
         var productColorsReport = new ProductColorsReport();
         List<Product> allProducts = ProductRepository.all();
 
-        ProductsReportResult reportResult = productColorsReport.report(allProducts);
-        for (ProductsReportResultItem reportItem : reportResult) {
+        ProductColorsReportResult reportResult = productColorsReport.report(allProducts);
+        for (ProductColorsReportResultItem reportItem : reportResult) {
             System.out.printf("%s: %s%n", reportItem.getColor(), reportItem.getQuantity());
         }
     }

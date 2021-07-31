@@ -1,14 +1,14 @@
 package br.com.rchlo.service;
 
 import br.com.rchlo.domain.Product;
-import br.com.rchlo.dto.ProductsReportResult;
+import br.com.rchlo.dto.ProductColorsReportResult;
 
 import java.util.List;
 
 public class ProductColorsReport {
 
-    public ProductsReportResult report(List<Product> products) {
-        var reportResult = new ProductsReportResult();
+    public ProductColorsReportResult report(List<Product> products) {
+        var reportResult = new ProductColorsReportResult();
         products.forEach(product -> reportResult.addColor(product.getColor()));
         return reportResult;
     }
