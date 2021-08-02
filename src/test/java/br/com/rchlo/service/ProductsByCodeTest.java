@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static br.com.rchlo.mother.ProductMother.*;
+import static br.com.rchlo.mother.ProductMother.aDiscountedTShirt;
+import static br.com.rchlo.mother.ProductMother.anExpensiveJacket;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
