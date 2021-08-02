@@ -3,6 +3,7 @@ package br.com.rchlo.dto;
 import br.com.rchlo.domain.PaymentStatus;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
@@ -13,6 +14,7 @@ public class PaymentStatistics extends HashMap<PaymentStatus, Long> {
 
     public PaymentStatistics(BigDecimal maximumAmountOfConfirmedPayment) {
         this.maximumAmountOfConfirmedPayment = maximumAmountOfConfirmedPayment;
+        Arrays.stream(PaymentStatus.values()).forEach(status -> this.put(status, 0L));
     }
 
     public BigDecimal getMaximumAmountOfConfirmedPayment() {
@@ -25,12 +27,7 @@ public class PaymentStatistics extends HashMap<PaymentStatus, Long> {
 
     public void addPaymentForStatus(PaymentStatus status) {
         Long quantity = this.get(status);
-        if (quantity == null) {
-            quantity = 1L;
-        } else {
-            quantity++;
-        }
-        this.put(status, quantity);
+        this.put(status, quantity + 1);
     }
 
     @Override
