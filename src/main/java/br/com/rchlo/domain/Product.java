@@ -107,4 +107,15 @@ public class Product {
                 ", availableSizes=" + availableSizes +
                 '}';
     }
+
+    public BigDecimal getEffectivePrice() {
+        if (hasDiscount()) {
+            return price.subtract(discount);
+        }
+        return price;
+    }
+
+    private boolean hasDiscount() {
+        return getDiscount() != null;
+    }
 }

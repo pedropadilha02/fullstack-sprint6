@@ -16,13 +16,7 @@ public class ProductsByEffectivePriceRange {
         List<Product> filteredProducts = new ArrayList<>();
 
         for (Product product : products) {
-            boolean hasDiscount = product.getDiscount() != null;
-            BigDecimal effectivePrice;
-            if (hasDiscount) {
-                effectivePrice = product.getPrice().subtract(product.getDiscount());
-            } else {
-                effectivePrice = product.getPrice();
-            }
+            BigDecimal effectivePrice = product.getEffectivePrice();
             if (effectivePrice.compareTo(minimumPrice) >= 0 && effectivePrice.compareTo(maximumPrice) <= 0) {
                 filteredProducts.add(product);
             }
