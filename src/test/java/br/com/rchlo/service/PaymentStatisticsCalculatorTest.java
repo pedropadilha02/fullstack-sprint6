@@ -53,4 +53,17 @@ class PaymentStatisticsCalculatorTest {
                 .containsEntry(PaymentStatus.CANCELED, 1L);
     }
 
+    @Test
+    void shouldContainAllZerosQuantityWhenThereAreNoPayment() {
+        when(paymentRepository.all()).thenReturn(List.of());
+
+        PaymentStatistics paymentStatistics = paymentStatisticsCalculator.calculate();
+
+        Map<PaymentStatus, Long> quantityOfPaymentsByStatus = paymentStatistics.getQuantityOfPaymentsByStatus();
+        Assertions.assertThat(quantityOfPaymentsByStatus)
+                .containsEntry(PaymentStatus.CREATED, 0L)
+                .containsEntry(PaymentStatus.CONFIRMED, 0L)
+                .containsEntry(PaymentStatus.CANCELED, 0L);
+    }
+
 }
