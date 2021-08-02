@@ -8,8 +8,15 @@ import java.util.List;
 public class ProductSizesReport {
 
     public ProductSizesReportResult report(List<Product> products) {
+        validateParameters(products);
+
         var reportResult = new ProductSizesReportResult();
-        products.forEach(product -> reportResult.addProduct(product));
+        products.forEach(reportResult::addProduct);
         return reportResult;
     }
+
+    private void validateParameters(List<Product> products) {
+        if (products == null) throw new IllegalArgumentException("product list should not be null");
+    }
+
 }

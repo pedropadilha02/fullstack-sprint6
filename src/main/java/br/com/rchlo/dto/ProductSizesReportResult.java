@@ -3,10 +3,7 @@ package br.com.rchlo.dto;
 import br.com.rchlo.domain.Product;
 import br.com.rchlo.domain.Size;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.Arrays.stream;
 import static java.util.function.Function.identity;
@@ -44,6 +41,31 @@ public class ProductSizesReportResult implements Iterable<ProductSizesReportResu
             return products;
         }
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ProductSizesReportResultItem that = (ProductSizesReportResultItem) o;
+
+            if (size != that.size) return false;
+            return Objects.equals(products, that.products);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = size != null ? size.hashCode() : 0;
+            result = 31 * result + (products != null ? products.hashCode() : 0);
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return "ProductSizesReportResultItem{" +
+                    "size=" + size +
+                    ", products=" + products +
+                    '}';
+        }
     }
 
     @Override
