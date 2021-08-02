@@ -39,6 +39,32 @@ public class ProductColorsReportResult implements Iterable<ProductColorsReportRe
         public int getQuantity() {
             return quantity;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ProductColorsReportResultItem that = (ProductColorsReportResultItem) o;
+
+            if (quantity != that.quantity) return false;
+            return color == that.color;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = color != null ? color.hashCode() : 0;
+            result = 31 * result + quantity;
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return "ProductColorsReportResultItem{" +
+                    "color=" + color +
+                    ", quantity=" + quantity +
+                    '}';
+        }
     }
 
     @Override
