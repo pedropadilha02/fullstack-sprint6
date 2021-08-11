@@ -1,5 +1,6 @@
 package br.com.rchlo.main;
 
+import br.com.rchlo.data.ConnectionFactory;
 import br.com.rchlo.data.PaymentRepository;
 import br.com.rchlo.domain.PaymentStatus;
 import br.com.rchlo.dto.PaymentStatistics;
@@ -10,7 +11,9 @@ import java.util.Map;
 public class PaymentsReportMain {
 
     public static void main(String[] args) {
-        var paymentRepository = new PaymentRepository();
+        ConnectionFactory.init();
+        var connection = ConnectionFactory.getConnection();
+        var paymentRepository = new PaymentRepository(connection);
         var paymentStatisticsCalculator = new PaymentStatisticsCalculator(paymentRepository);
 
         PaymentStatistics paymentStatistics = paymentStatisticsCalculator.calculate();

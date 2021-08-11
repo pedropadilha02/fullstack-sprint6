@@ -20,18 +20,16 @@ class PaymentStatisticsCalculatorTest {
 
     private PaymentRepository paymentRepository;
     private PaymentStatisticsCalculator paymentStatisticsCalculator;
-    private List<Payment> payments;
 
     @BeforeEach
     void setUp() {
         paymentRepository = mock(PaymentRepository.class);
-        payments = List.of(aCreatedPayment(), anotherCreatedPayment(), aConfirmedPayment(), aCanceledPayment());
         paymentStatisticsCalculator = new PaymentStatisticsCalculator(paymentRepository);
     }
 
     @Test
     void shouldCalculateMaximumAmountOfConfirmedPayment() {
-        when(paymentRepository.all()).thenReturn(payments);
+        when(paymentRepository.maximumAmountOfConfirmedPayment()).thenReturn(new BigDecimal("200.0"));
 
         PaymentStatistics paymentStatistics = paymentStatisticsCalculator.calculate();
 
@@ -42,7 +40,11 @@ class PaymentStatisticsCalculatorTest {
 
     @Test
     void shouldCalculateQuantityByPaymentStatus() {
-        when(paymentRepository.all()).thenReturn(payments);
+        Map<PaymentStatus, Long> paymentQuantityByStatus = Map.of(
+                PaymentStatus.CREATED, 2L,
+                PaymentStatus.CONFIRMED, 1L,
+                PaymentStatus.CANCELED, 1L);
+        when(paymentRepository.quantityByPaymentStatus()).thenReturn(paymentQuantityByStatus);
 
         PaymentStatistics paymentStatistics = paymentStatisticsCalculator.calculate();
 
@@ -51,19 +53,6 @@ class PaymentStatisticsCalculatorTest {
                 .containsEntry(PaymentStatus.CREATED, 2L)
                 .containsEntry(PaymentStatus.CONFIRMED, 1L)
                 .containsEntry(PaymentStatus.CANCELED, 1L);
-    }
-
-    @Test
-    void shouldContainAllZerosQuantityWhenThereAreNoPayment() {
-        when(paymentRepository.all()).thenReturn(List.of());
-
-        PaymentStatistics paymentStatistics = paymentStatisticsCalculator.calculate();
-
-        Map<PaymentStatus, Long> quantityOfPaymentsByStatus = paymentStatistics.getQuantityOfPaymentsByStatus();
-        Assertions.assertThat(quantityOfPaymentsByStatus)
-                .containsEntry(PaymentStatus.CREATED, 0L)
-                .containsEntry(PaymentStatus.CONFIRMED, 0L)
-                .containsEntry(PaymentStatus.CANCELED, 0L);
     }
 
 }
