@@ -3,7 +3,6 @@ package br.com.rchlo.service;
 import br.com.rchlo.domain.Color;
 import br.com.rchlo.domain.Product;
 import br.com.rchlo.domain.Size;
-import br.com.rchlo.service.ProductsByCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,22 +13,22 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ProductsByCodeTest {
+class ProductsColorReportTest {
 
-    private ProductsByCode productsByCode;
+    private ProductsColorReport ProductsColorReport;
 
     @BeforeEach
     void setUp() {
-        productsByCode = new ProductsByCode();
+        ProductsColorReport = new ProductsColorReport();
     }
 
     @Test
-    void shouldReturnOnlyTheCorrectCode() {
+    void shouldReturnCorrectColorQuantity() {
         List<Product> products = List.of(aTShirt(), aJacket());
 
-        List<Product> filteredProducts = productsByCode.filter(14124998L, products);
+        List<Product> filteredProducts = ProductsColorReport.filter(products);
 
-        assertEquals(1, filteredProducts.size());
+        assertEquals(2, filteredProducts.size());
 
         Product product = filteredProducts.get(0);
         assertEquals(14124998L, product.getCode());
@@ -37,35 +36,18 @@ class ProductsByCodeTest {
     }
 
     @Test
-    void shouldReturnAnEmptyListIfTheCodeIsNotFound() {
-        List<Product> products = List.of(aTShirt(), aJacket());
-
-        List<Product> filteredProducts = productsByCode.filter(-999L, products);
-
-        assertEquals(0, filteredProducts.size());
-    }
-
-    @Test
     void shouldAcceptAnEmptyList() {
         List<Product> emptyProducts = List.of();
 
-        List<Product> filteredProducts = productsByCode.filter(1L, emptyProducts);
+        List<Product> filteredProducts = ProductsColorReport.filter(emptyProducts);
 
         assertEquals(0, filteredProducts.size());
-    }
-
-    @Test
-    void shouldNotAcceptANullCode() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            List<Product> emptyProducts = List.of();
-            productsByCode.filter(null, emptyProducts);
-        });
     }
 
     @Test
     void shouldNotAcceptANullList() {
         assertThrows(IllegalArgumentException.class, () -> {
-            productsByCode.filter(1L, null);
+            ProductsColorReport.filter(null);
         });
     }
 

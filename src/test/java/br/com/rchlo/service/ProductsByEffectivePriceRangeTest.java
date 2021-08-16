@@ -3,6 +3,7 @@ package br.com.rchlo.service;
 import br.com.rchlo.domain.Color;
 import br.com.rchlo.domain.Product;
 import br.com.rchlo.domain.Size;
+import br.com.rchlo.service.ProductsByEffectivePriceRange;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +28,7 @@ class ProductsByEffectivePriceRangeTest {
         BigDecimal minimumPrice = new BigDecimal("30.0");
         BigDecimal maximumPrice = new BigDecimal("40.0");
 
-        List<Product> filteredProducts = productsByEffectivePriceRange.m(minimumPrice, maximumPrice, products);
+        List<Product> filteredProducts = productsByEffectivePriceRange.listProducts(minimumPrice, maximumPrice, products);
 
         assertEquals(1, filteredProducts.size());
 
@@ -42,7 +43,7 @@ class ProductsByEffectivePriceRangeTest {
         BigDecimal minimumPrice = new BigDecimal("29.90");
         BigDecimal maximumPrice = new BigDecimal("29.90");
 
-        List<Product> filteredProducts = productsByEffectivePriceRange.m(minimumPrice, maximumPrice, products);
+        List<Product> filteredProducts = productsByEffectivePriceRange.listProducts(minimumPrice, maximumPrice, products);
 
         assertEquals(1, filteredProducts.size());
 
@@ -57,7 +58,7 @@ class ProductsByEffectivePriceRangeTest {
         BigDecimal minimumPrice = new BigDecimal("34.90");
         BigDecimal maximumPrice = new BigDecimal("34.90");
 
-        List<Product> filteredProducts = productsByEffectivePriceRange.m(minimumPrice, maximumPrice, products);
+        List<Product> filteredProducts = productsByEffectivePriceRange.listProducts(minimumPrice, maximumPrice, products);
 
         assertEquals(1, filteredProducts.size());
 
@@ -69,7 +70,7 @@ class ProductsByEffectivePriceRangeTest {
     private Product aDiscountedTShirt() {
         return new Product(14124998L,
                 "Camiseta Infantil Manga Curta Super Mario",
-                "A Camiseta Infantil Manga Curta Super Mario é confeccionada em malha macia e possui decote careca, mangas curtas e padronagem do Super Mario. Aposte na peça na hora de compor visuais geek divertidos.",
+                "A Camiseta Infantil Manga Curta Super Mario Ã© confeccionada em malha macia e possui decote careca, mangas curtas e padronagem do Super Mario. Aposte na peÃ§a na hora de compor visuais geek divertidos.",
                 "camiseta-infantil-manga-curta-super-mario-14124998_sku",
                 "Nintendo",
                 new BigDecimal("39.90"),
@@ -83,7 +84,7 @@ class ProductsByEffectivePriceRangeTest {
     private Product anExpensiveJacket() {
         return new Product(13834193L,
                 "Jaqueta Puffer Juvenil Com Capuz Super Mario",
-                "A Jaqueta Puffer Juvenil Com Capuz Super Mario é confeccionada em material sintético. Possui estrutura ampla e modelo puffer, com capuz em pelúcia e bolsos frontais. Ideal para compor looks de inverno, mas sem perder o estilo. Combine com uma camiseta, calça jeans e tênis colorido.",
+                "A Jaqueta Puffer Juvenil Com Capuz Super Mario Ã© confeccionada em material sintÃ©tico. Possui estrutura ampla e modelo puffer, com capuz em pelÃºcia e bolsos frontais. Ideal para compor looks de inverno, mas sem perder o estilo. Combine com uma camiseta, calÃ§a jeans e tÃªnis colorido.",
                 "jaqueta-puffer-juvenil-com-capuz-super-mario-13834193_sku",
                 "Nintendo",
                 new BigDecimal("199.90"),
@@ -97,7 +98,7 @@ class ProductsByEffectivePriceRangeTest {
     private Product aCheapTankTop() {
         return new Product(14040174L,
                 "Regata Infantil Mario Bros",
-                "A Regata Infantil Mario Bros é confeccionada em fibra natural, possui decote redondo e modelagem regular. As peças temáticas com os personagens preferidos da criançada são indispensáveis no guarda-roupa. Divertidas e cheias de personalidade, os modelos são uma forma dos pequenos se expressarem em relação aos seus gostos pessoais, que já começam desde cedo. Aposte!",
+                "A Regata Infantil Mario Bros Ã© confeccionada em fibra natural, possui decote redondo e modelagem regular. As peÃ§as temÃ¡ticas com os personagens preferidos da crianÃ§ada sÃ£o indispensÃ¡veis no guarda-roupa. Divertidas e cheias de personalidade, os modelos sÃ£o uma forma dos pequenos se expressarem em relaÃ§Ã£o aos seus gostos pessoais, que jÃ¡ comeÃ§am desde cedo. Aposte!",
                 "regata-infantil-mario-bros-14040174_sku",
                 "Nintendo",
                 new BigDecimal("29.90"),
